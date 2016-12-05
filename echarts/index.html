@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="width: 600px;height:400px;"></div>
+
+<button class="btn1">Test1</button>
+<button class="btn2">Test2</button>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: 'ECharts 入门示例'
+        },
+        tooltip: {},
+        legend: {
+            data:['销量']
+        },
+        xAxis: {
+            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+        },
+        yAxis: {},
+        series: [{
+            name: '销量',
+            type: 'line',
+            data: [5, 20, 36, 10, 10, 20]
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+    $(".btn1").click(function(){
+
+        option.legend.data = ['销量',"购买"]
+        option.series = [{
+            name: '销量',
+            type: 'line',
+            data: [5, 20, 36, 10, 20, 30]
+        },{
+            name: '购买',
+            type: 'line',
+            data: [1, 10, 26, 30, 20, 30]
+        }];
+        //console.log(option);
+        myChart.setOption(option,true);
+    });
+
+    $(".btn2").click(function(){
+
+        option.legend.data = ['销量']
+        option.series = [{
+            name: '销量',
+            type: 'line',
+            data: [100, 50, 46, 20, 50, 40]
+        }];
+        console.log(option);
+        myChart.setOption(option,true);
+    });
+</script>
+</body>
+</html>
