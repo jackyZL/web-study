@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvas" style="border: 1px solid #ccc; margin: 50px auto;"></canvas>
+
+<script>
+
+    var canvas = document.getElementById("canvas");
+    canvas.width = 800;
+    canvas.height = 800;
+    var context = canvas.getContext("2d");
+
+    context.fillStyle = "#fb5";
+
+    context.shadowColor = "gray";
+    context.shadowOffsetX = 20;
+    context.shadowOffsetY = 20;
+    context.shadowBlur = 5;
+
+    context.fillRect(100,100,200,300);
+
+</script>
+</body>
+</html>

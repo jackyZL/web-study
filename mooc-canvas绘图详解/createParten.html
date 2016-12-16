@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvas" style="border: 1px solid #ccc; margin: 50px auto;"></canvas>
+
+<script>
+
+    var canvas = document.getElementById("canvas");
+    canvas.width = 800;
+    canvas.height = 800;
+    var context = canvas.getContext("2d");
+
+    var img = new Image();
+    img.src = "bark.jpg";
+
+    img.onload = function(){
+        var parten = context.createPattern(img,"no-repeat");
+
+        context.fillStyle = parten;
+        context.fillRect(0,0,800,800);
+    }
+
+
+
+
+</script>
+</body>
+</html>

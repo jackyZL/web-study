@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvas" style="border: 1px solid #ccc; margin: 50px auto;"></canvas>
+
+<script>
+
+    var canvas = document.getElementById("canvas");
+    canvas.width = 800;
+    canvas.height = 800;
+    var context = canvas.getContext("2d");
+
+    context.beginPath();
+    context.fillStyle = "black";
+    context.fillRect(0,0,canvas.width,canvas.height);
+
+
+    context.beginPath();
+    context.arc(400,400,150,0,Math.PI*2);
+    context.fillStyle = "#fff";
+    context.fill();
+    context.clip(); // 将刚才设置的路径，把它剪切为当前的绘制环境。 也就是把之前的整个canvas画布绘制环境，设置为clip剪切的路径。
+
+    context.font = "bold 150px Arial";
+    context.textAlign = "center";
+    context.baseline = "middle";
+    context.fillStyle = "#058";
+    context.fillText("CANVAS",canvas.width/2, canvas.height/2);
+
+
+
+</script>
+</body>
+</html>

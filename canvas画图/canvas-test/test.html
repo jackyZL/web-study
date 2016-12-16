@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<canvas id="canvas" width="800px" height="600px"></canvas>
+<script>
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    var size = 3;
+
+    var img = new Image();
+    img.src = "star.png";
+
+    ctx.fillStyle = "#393550";
+    ctx.fillRect(0, 0, 800, 600);
+    ctx.globalCompositeOperation = "lighter";
+
+    var gradientArray = [];
+
+    var gradient = ctx.createRadialGradient(50, 50, 0, 50, 50, size);
+
+    gradientArray.push(gradient);
+
+    /*img.onload = function(){
+        ctx.save();
+        ctx.globalAlpha = 0.5;
+        ctx.drawImage(img, 21, 0, 7, 7, 100, 100, 7, 7);
+        ctx.restore();
+
+        ctx.save();
+        ctx.drawImage(img, 21, 0, 7, 7, 100, 200, 7, 7);
+        ctx.restore();
+
+        ctx.drawImage(img, 21, 0, 7, 7, 100, 300, 7, 7);
+    }*/
+
+
+    function renderAction() {
+
+        render();
+
+        setTimeout(renderAction, 180);
+    }
+
+    renderAction();
+
+    function render() {
+        /*var gradient = gradientArray[0];
+         if (~~(0.5 + Math.random() * 7) == 1) {
+         size = 0;
+         } else {
+         size = 10;
+         }
+
+
+         gradient.addColorStop(0, "rgba(7,120,249,1)");
+         gradient.addColorStop(1, "rgba(7,120,249,0.3)");
+         ctx.fillStyle = gradient;
+         ctx.arc(50, 50, 10, 0, Math.PI * 2, false);
+         ctx.fill();*/
+
+        var x = Math.floor(Math.random() * 3) *  7 ;
+
+
+        ctx.globalAlpha = Math.sin(Math.random() * Math.PI * 0.5);
+        //console.log(ctx.globalAlpha);
+        ctx.drawImage(img, x, 0, 7, 7, 100, 100, 7, 7);
+
+    }
+
+
+</script>
+</body>
+</html>

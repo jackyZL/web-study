@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <canvas id = "canvas" width = "800px" height = "600px"></canvas>
+</div>
+
+<script>
+
+    var canvas = document.getElementById("canvas");
+    var cxt = canvas.getContext("2d");
+
+
+    function drawStars(x, y, radius1, radius2, num, drawType, color) {
+
+        var angle = 360 / (num * 2);
+
+        // 存放需要绘制的星星
+        var arr = [];
+
+        for (var i = 0; i < num * 2; i++) {
+            var starObj = {};
+
+            if (i % 2 == 0) {
+
+                starObj.x = x + radius1 * Math.cos(i * angle * Math.PI / 180);
+
+                starObj.y = y + radius1 * Math.sin(i * angle * Math.PI / 180);
+
+            } else {
+
+                starObj.x = x + radius2 * Math.cos(i * angle * Math.PI / 180);
+
+                starObj.y = y + radius2 * Math.sin(i * angle * Math.PI / 180);
+
+            }
+
+            arr.push(starObj);
+
+        }
+
+
+        cxt.beginPath();
+
+        cxt.fillStyle = color;
+
+        cxt.strokeStyle = color;
+
+        cxt.moveTo(arr[0].x, arr[0].y);
+
+        for (var i = 1; i < arr.length; i++) {
+
+            cxt.lineTo(arr[i].x, arr[i].y);
+
+        }
+
+        cxt.closePath();
+
+        if (drawType == "fill") {
+
+            cxt.fill();
+
+        } else {
+
+            cxt.stroke();
+
+        }
+
+    }
+
+    var starArr = [];                           //多个星星对象
+
+    for (var i = 0; i < 5; i++) {
+
+        var starObj = {
+
+            radius1: 10 + 5 * Math.random(),
+
+            radius2: 2 + 4 * Math.random(),
+
+            x: 30 + (canvas.width - 60) * Math.random(),
+
+            y: 30 + (canvas.height - 60) * Math.random(),
+            num: 4,
+
+            angle: 360 * Math.random(),
+
+            changeAngle: -5 + 10 * Math.random(),
+
+            color: "rgb(" + parseInt(255 * Math.random()) + "," + parseInt(255 * Math.random()) + "," + parseInt(255 * Math.random()) + ")"
+
+        }
+
+        starArr.push(starObj);
+
+    }
+
+
+    setInterval(function () {
+
+        cxt.clearRect(0, 0, 500, 500);
+
+        for (var i = 0; i < starArr.length; i++) {
+
+            starArr[i].angle += starArr[i].changeAngle;
+
+            cxt.save();
+
+            cxt.beginPath();
+
+            cxt.translate(starArr[i].x, starArr[i].y);
+
+            cxt.rotate(starArr[i].angle * Math.PI / 180);
+
+            cxt.scale(Math.sin(starArr[i].angle * Math.PI / 180), Math.sin(starArr[i].angle * Math.PI / 180));
+
+            cxt.globalAlpha = Math.abs(Math.sin(starArr[i].angle * Math.PI / 180));
+
+            drawStars(0, 0, starArr[i].radius1, starArr[i].radius2, starArr[i].num, "fill", "green");
+
+            cxt.restore();
+
+        }
+
+    }, 30);
+</script>
+
+</body>
+</html>

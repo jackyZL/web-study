@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvas" style="border: 1px solid #ccc; margin: 50px auto;"></canvas>
+
+<script>
+
+    var canvas = document.getElementById("canvas");
+    canvas.width = 800;
+    canvas.height = 800;
+    var context = canvas.getContext("2d");
+
+
+    context.lineWidth = 10;
+    context.fillStyle = "red";
+    context.translate(100,100);
+    context.fillRect(0, 0, 300, 300);
+
+
+    context.lineWidth = 10;
+    context.fillStyle = "yellow";
+    context.translate(200,200);
+    context.fillRect(0, 0, 300, 300);
+
+
+
+</script>
+</body>
+</html>

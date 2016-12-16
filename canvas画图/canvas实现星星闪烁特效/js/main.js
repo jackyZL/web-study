@@ -21,7 +21,7 @@ var girlPic = new Image();
 var starPic = new Image();
 
 var stars = [];
-var num = 30;
+var num = 1;
 
 var alive = 0;
 

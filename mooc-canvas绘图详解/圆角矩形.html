@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvas" style="border: 1px solid #ccc; margin: 50px auto;"></canvas>
+
+<script>
+
+    var canvas = document.getElementById("canvas");
+    canvas.width = 800;
+    canvas.height = 800;
+    var context = canvas.getContext("2d");
+
+    //drawRoundRect(context, 100, 100, 600, 500, 50);
+
+    fillRoundRect(context, 150, 150, 500, 500, 10, "#bbada0");
+    for (var i = 0; i < 4; i++) {
+        for (var j = 0; j < 4; j++) {
+            fillRoundRect(context, 170 + i * 120, 170 + j * 120, 100, 100, 6, "#ccc0b3");
+        }
+    }
+
+    /**
+     * fill 圆角矩形
+     * @param ctx
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param radius
+     * @param fillstyle
+     */
+    function fillRoundRect(ctx, x, y, width, height, radius, /*optional*/fillstyle) {
+
+        if (2 * radius > width || 2 * radius > height) {
+            return;
+        }
+
+        ctx.save();
+        ctx.translate(x, y);
+        pathRoundRect(ctx, width, height, radius);
+        ctx.fillStyle = fillstyle || 'black';
+        ctx.fill();
+        ctx.restore();
+    }
+
+    /**
+     * stroke 圆角矩形
+     * @param ctx
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param radius
+     * @param strokeStyle
+     */
+    function strokeRoundRect(ctx, x, y, width, height, radius, /*optional*/strokeStyle) {
+
+        if (2 * radius > width || 2 * radius > height) {
+            return;
+        }
+        ctx.save();
+        ctx.translate(x, y);
+        pathRoundRect(ctx, width, height, radius);
+        ctx.strokeStyle = strokeStyle || 'black';
+        ctx.stroke();
+        ctx.restore();
+    }
+
+    /**
+     * 绘制圆角矩形
+     * @param ctx
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param radius
+     */
+    function drawRoundRect(ctx, x, y, width, height, radius) {
+
+        ctx.save();
+        ctx.translate(x, y);
+        pathRoundRect(ctx, width, height, radius);
+        ctx.strokeStyle = 'black';
+        ctx.stroke();
+        ctx.restore();
+
+    }
+
+    /**
+     * 圆角矩形路径
+     * @param ctx
+     * @param width
+     * @param height
+     * @param radius
+     */
+    function pathRoundRect(ctx, width, height, radius) {
+
+        ctx.beginPath();
+
+        ctx.arc(width - radius, height - radius, radius, 0, 0.5 * Math.PI);
+        ctx.lineTo(radius, height);
+        ctx.arc(radius, height - radius, radius, 0.5 * Math.PI, Math.PI);
+        ctx.lineTo(0, radius);
+        ctx.arc(radius, radius, radius, Math.PI, 1.5 * Math.PI);
+        ctx.lineTo(width - radius, 0);
+        ctx.arc(width - radius, radius, radius, 1.5 * Math.PI, 2 * Math.PI);
+        ctx.closePath();
+
+    }
+
+
+</script>
+</body>
+</html>

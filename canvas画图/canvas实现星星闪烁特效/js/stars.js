@@ -58,8 +58,8 @@ starObj.prototype.draw = function() {
 
 	// 全局透明度(canvas上的所有图片都生效)
 	ctx.globalAlpha = Math.sin(this.beta) * alive;
-	console.log(alive);
-	console.log(ctx.globalAlpha);
+	//console.log(alive);
+	//console.log(ctx.globalAlpha);
 	// 每个星星都是7*7的像素变化
 	ctx.drawImage(starPic, this.picNo * 7, 0, 7, 7, this.x, this.y, 7, 7);
 

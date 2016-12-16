@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvas" style="border: 1px solid #ccc; margin: 50px auto;"></canvas>
+
+<script>
+
+    window.onload = function () {
+
+        var canvas = document.getElementById("canvas");
+        canvas.width = 1200;
+        canvas.height = 800;
+        var context = canvas.getContext("2d");
+
+
+        var skyStyle = context.createLinearGradient(0, 0, 0, canvas.height);
+        skyStyle.addColorStop(0.0, "black");
+        skyStyle.addColorStop(1.0, "#035");
+        context.fillStyle = skyStyle;
+
+        context.fillRect(0, 0, canvas.width, canvas.height);
+
+        for (var i = 0; i < 200; i++) {
+            var R = Math.random() * 5 + 5;
+            var x = Math.random() * canvas.width;
+            var y = Math.random() * canvas.height * 0.65;
+
+            var rot = Math.random() * 360;
+
+            drawStar(context, R, x, y, rot);
+
+        }
+
+
+        fillMonn(context, 2, 900, 200, 100, 30);
+
+        drawLand(context);
+
+
+    }
+
+    /**
+     * 绘制绿地
+     */
+    function drawLand(ctx) {
+
+        ctx.save();
+        ctx.beginPath();
+
+        ctx.moveTo(0,600);
+        ctx.bezierCurveTo(540, 400, 660, 880, 1200, 600);
+        ctx.lineTo(1200,800);
+        ctx.lineTo(0,800);
+
+        var landStyle = ctx.createLinearGradient(0,800,0,0);
+        landStyle.addColorStop(0.0, "#030");
+        landStyle.addColorStop(1.0, "#580");
+        ctx.fillStyle = landStyle;
+
+        ctx.fill();
+
+        ctx.closePath();
+        ctx.restore();
+
+    }
+
+
+    /**
+     *
+     * @param ctx
+     * @param interR
+     * @param outR
+     * @param x
+     * @param y
+     * @param rot
+     */
+    function drawStar(ctx, R, x, y, rot) {
+
+        ctx.save();
+        ctx.translate(x, y);
+
+        ctx.rotate(rot / 180 * Math.PI);
+        ctx.scale(R, R);
+
+        starPath(ctx);
+
+        ctx.fillStyle = "#fb3"
+
+        //ctx.stokStyle = "#fd5"
+        //ctx.lineWidth = 3;
+
+        ctx.fill();
+        ctx.restore();
+
+    }
+
+    /**
+     * 标准的五角星的路径，大圆是小圆半径的两倍
+     * @param ctx
+     */
+    function starPath(ctx) {
+        ctx.beginPath();
+        for (var i = 0; i < 5; i++) {
+            ctx.lineTo(Math.cos((18 + i * 72 ) / 180 * Math.PI), -Math.sin((18 + i * 72 ) / 180 * Math.PI));
+            ctx.lineTo(Math.cos((54 + i * 72 ) / 180 * Math.PI) * 0.5, -Math.sin((54 + i * 72 ) / 180 * Math.PI) * 0.5);
+        }
+        ctx.closePath();
+
+
+    }
+
+
+    /**
+     * 两点间距离
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     * @returns {number}
+     */
+    function dis(x1, y1, x2, y2) {
+        return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+    }
+
+    // d 用来控制点横坐标的值
+    function fillMonn(ctx, d, x, y, R, rot, /*optional*/ fillColor) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(rot);
+        ctx.scale(R, R);
+        pathMoon(ctx, d);
+        ctx.fillStyle = fillColor || "#fb5";
+        ctx.fill();
+        ctx.restore();
+    }
+
+    // 以（0,0）为圆心，1为半径绘制
+    function pathMoon(ctx, d) {
+        ctx.beginPath();
+        // 外弧
+        ctx.arc(0, 0, 1, 0.5 * Math.PI, 1.5 * Math.PI, true);
+        ctx.moveTo(0, -1);
+        ctx.quadraticCurveTo(1.2, 0, 0, 1);
+        ctx.closePath();
+    }
+
+
+</script>
+</body>
+</html>
