@@ -44,32 +44,22 @@
 
         render();
 
-        setTimeout(renderAction, 180);
+        setTimeout(renderAction, 1000);
     }
+
+    var picNo = 0;
 
     renderAction();
 
     function render() {
-        /*var gradient = gradientArray[0];
-         if (~~(0.5 + Math.random() * 7) == 1) {
-         size = 0;
-         } else {
-         size = 10;
-         }
-
-
-         gradient.addColorStop(0, "rgba(7,120,249,1)");
-         gradient.addColorStop(1, "rgba(7,120,249,0.3)");
-         ctx.fillStyle = gradient;
-         ctx.arc(50, 50, 10, 0, Math.PI * 2, false);
-         ctx.fill();*/
-
+        ctx.save();
         var x = Math.floor(Math.random() * 3) *  7 ;
-
-
-        ctx.globalAlpha = Math.sin(Math.random() * Math.PI * 0.5);
-        //console.log(ctx.globalAlpha);
-        ctx.drawImage(img, x, 0, 7, 7, 100, 100, 7, 7);
+        picNo ++;
+        picNo = picNo % 7;
+        //ctx.globalAlpha = Math.sin(Math.random() * Math.PI * 0.5);
+        console.log(picNo);
+        ctx.drawImage(img, picNo*7, 0, 7, 7, Math.random()*100, Math.random()*100, 7, 7);
+        ctx.restore();
 
     }
 

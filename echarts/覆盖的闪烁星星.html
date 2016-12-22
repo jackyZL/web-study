@@ -113,6 +113,7 @@
             gradient.addColorStop(0, "rgba(7,120,249,1)");
             gradient.addColorStop(1, "rgba(7,120,249,0.3)");
             ctx.fillStyle = gradient;
+            //console.log(p.size);
             ctx.arc(p.x, p.y, p.size, Math.PI * 2, false);
             ctx.fill();
             if (~~(0.5 + Math.random() * 7) == 1) {
@@ -159,9 +160,13 @@
         }
         ComplexCustomOverlay.prototype.draw = function () {
             var map = this._map;
+            // 返回地图可视区域（矩形区）
             var bounds = map.getBounds();
+            console.log(bounds);
+            // 返回西南点和东北点
             var sw = bounds.getSouthWest();
             var ne = bounds.getNorthEast();
+            //根据地理坐标获取对应的覆盖物容器的坐标
             var pixel = map.pointToOverlayPixel(new BMap.Point(sw.lng, ne.lat));
             py = pixel;
             if (rs.length > 0) {
@@ -175,6 +180,7 @@
         var bounds = map.getBounds();
         var sw = bounds.getSouthWest();
         var ne = bounds.getNorthEast();
+        // 根据球面坐标获得平面坐标
         sw = project.lngLatToPoint(new BMap.Point(sw.lng, sw.lat));
         ne = project.lngLatToPoint(new BMap.Point(ne.lng, ne.lat));
 
@@ -183,6 +189,7 @@
             x: sw.x,
             y: ne.y
         }
+
 
         /**
          * 请求定位数据,并在地图上绘制出
@@ -195,12 +202,9 @@
             request: function (time, successCbk){
 
                 if (!isOverlay) {
-                    rs = [[1109,554,7],[830,752,8],[1195,596,2]];
-                } else {
-                    rs = rs.concat(JSON.parse(xhr.responseText));
-                    if (rs.length > 10000) {
-                        rs.splice(0, rs.length - 10000);
-                    }
+                    //rs = [[1109,554,7],[830,752,8],[1195,596,2]];
+                    // 传入坐标点
+                    rs = [[113.502772,23.160539,12]];
                 }
                 showStars(rs);
                 if (successCbk) {
@@ -245,10 +249,12 @@
             var temp = {};
             for (var i = 0, len = rs.length; i < len; i++) {
                 var item = rs[i];
-                var addNum = gridWidth / 2;
+                /*var addNum = gridWidth / 2;
                 var x = item[0] * gridWidth + addNum;
                 var y = item[1] * gridWidth + addNum;
-                var point = project.pointToLngLat(new BMap.Pixel(x, y));
+                var point = project.pointToLngLat(new BMap.Pixel(x, y));*/
+                var point = new BMap.Point(item[0],item[1]);
+                // 根据地理坐标，获取对应的覆盖物容器坐标
                 var px = map.pointToOverlayPixel(point);
                 //create all stars
                 var s = new Star({
